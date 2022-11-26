@@ -1,0 +1,93 @@
+1st Step: Vectorize each word (Word Embedding Models): EITHER USE Word2Vec (CBOW, SkipGram) Model or GloVe model  or FastText (Facebook) ... thse are all Deep learning models. The Word2Vec  & Glove models are readily avaiable in "gensim" package.
+
+word-vectors & word-embeddings are synonymous.
+
+"vector_size" = 5 (also called as "embedding_size" in Keras) (hyper-param)
+used =      [2,	3,	4,	1,	3]  ( bunch of "some" floating-point numbers in reality)...
+to =          [55,	22,	11,	33,	54]
+perform = [21,	32,	43,	56, 	66]
+...
+
+Step 2. Vectorize the documents >>> [N x p]
+D1: 11, D2: 8, D3: 15 words.... N documents
+
+[N x p] >>> final feature matrix which will be fed to the ML algo !!
+p = no. of features (going to be extracted for EACH doument)
+
+There are 2 approaches for Vectorizing the Documents:
+A) using the ABOVE word-vectors (word-embeddings)
+in this case, p = "vector_size"
+each document vector is essentially an average of all the word-vectors of all the words in that docuement.
+
+doc_vector1 = [35, 21, 31, 36, 43] from 11 word-vectors
+doc_vector2 = [32, 29, 30, 16, 13]  .... from 8  word-vectors
+doc_vector3 = [15, 11, 10, 6, 3] .....from 15 word-vectors
+concatenate ALL these document vectors vertically and generate [N x 5]. >>> final feature matrix
+
+B) Using the word-counts (sort-of) directly.>> Bag of Words Model
+- We DO NOT USE the Word Vectors 
+- there 4 methods: binary, count, freq, tf-idf, word-hashing (these are 5 types of BoW Models)
+- The output of BoW model is called as Document-Term Matrix (DTM) : "mapping" of documents and the terms from the vocab
+=> The final dimensions of the DTM = [N x p]; where p = vocab_size
+(here the "term" referrs to the tokens (unigrams/bibrams/trigrams) )
+
+- vocab: IS the collection of ALL the unique tokens from all the documents in the entire corpus.
+- Each token from the final vocab is finally going to become a feature.
+- Hence, the number of total tokens in the vocab will decide the number of features (p = vocab_size)
+- we can do some "filtering" of tokens from the vocab, why? (to reduce the size of the vocab, & make it more relevant/meaningful)
+
+- Has no effect of grammar and order of words in sentence
+
+- In the case of "binary" mode: we are only marking the presence of each word from the vocab, whether or not it is present in a gvien document. so DTM will contain only zeros and ones!
+
+- In the case of "count" mode: we will also retain the number of times a word from the vocab appears in a given document!
+
+- In the case of "freq" mode: we'll normalize the word frequencies by dividing with the length of each document.
+Hence, the scores are nothing but the normalized-frequencies of each word in a given document.
+
+- TF-IDF: replace the word counts or frequencies with thier corresponding TF-IDF scores.
+
+==================================
+
+Problems with the BoW Models:
+1. High Sparsity of the Feature Matrix
+2. High Dimensionality of the DTM 
+3. Ordering of words in a doc IS LOST!!! (LOSS OF CONTEXT) ... no semantic relation between words
+
+==================================
+Probable Solutions to the above problems:
+1. use feature selection techniques to "narrow down" to "few" useful features. Can also use some filters like "min_df", "max_df" & max_features if nothing else works.
+2. Use TruncatedSVD for Dimensionality Reduction (instread of PCA)
+3. N-Gram tokenization... to some extent. Better use Word Embeddings
+
+#####################################
+
+Use Word embedding as a solution.(all the above 3)
+1. WE models gives word_vectors which are dense representations! (never sparse).
+So the resulting Feature-set (document vectors) is DENSE!
+
+2. The dimensionality of the feature set is limited by the size of the word embedding
+(which is normally, 50, 100, 200 or MAX 300 dimensional)
+
+3. Word2Vec Models: retains the context of each word in a given document
+GloVe (GLobal Vectors) Models: retains the context of each word in the entire corpus!!
+
+
+https://nlp.stanford.edu/data/glove.6B.zip
+https://www.kaggle.com/datasets/leadbest/googlenewsvectorsnegative300
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
