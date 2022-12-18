@@ -1,0 +1,80 @@
+0. Pre-procesessing or Data Cleaning & EDA
+
+1. Feature Extraction (only when data is unstructured (text, image) )
+text: CV, TF-IDF, Embeddings etc..
+images: Pixels, OR (HOG, SURF, SIFT, Gabor Features etc...)
+
+2. Feature Engineering:  Generate new meaningful features using existing features.
+
+3. Feature Selection: FFS, BFS, RFE, SelectKBest, F Imp. from RF/ET, Lasso, etc...
+Dimensionality Reduction:.. PCA, TuncatedSVD - alternative to Feature Selection
+
+4. Feature Transformation (most tricky): make sure you are doing the "right" transformation for each datatype (numeric/nominal/ordinal)
+- This MUST be the LAST step of data transformation, before ML model is trained!
+
+================
+
+which would be the best score for a model - accuracy, recall, f1 score ?
+
+Classes >>> 0/ 1
+TP (1 pred as 1) , TN (0 pred as 0)  >> correct predictions
+
+incorrect predictions >>> FP (0 is being predicted as 1)  vs FN (1 is being predicted as 0 by the model)
+ 
+If you are non-biased (equally "concerned") about the 2 classes >>> then overall accuracy is sufficient
+
+whereas if your are more "concerned" when FP is more OR FN is more...
+OR if there is HUGE class imbalance!
+
+e.g. Face recog s/w or app in you mobile phone... phone unlock using/recognizing your face...
+1: Prashant,... 0: not Prashant
+FP >> Other person is recognized as Prashant
+FN >> Prashant's face is not being recognized
+
+==================================
+Another example (COVID)
+1: Covid +ve
+0: Covid -ve
+FP: Covid -ve patient being marked as +ve (0 marked as 1)
+FN: Covid +ve patient being marked as -ve (1 marked as 0)
+
+Precision, Recall & F1-score are defined for each class.
+    	 PRed Class
+	0	1
+Actual 0:  200	20
+Actual 1: 30	300
+
+TP:  300   	FP: 20
+TN:  200	FN: 30
+
+Precision: Out of total PREDICTIONS (for a given class), how many were correct.
+Precision for Class Y=1:   (300) / (300 + 20)
+Precision for Class Y=0:   (200) / (200+30)
+
+Recall: Out of total ACTUALS (for a given class), how many were predicted correct (how many instances of that class the model was able to "recollect")
+Recall for Class Y=1:   (300) / (300 + 30)
+Recall for Class Y=0:   (200) / (200+ 20)
+
+If ALL the 550 passengers are marked as COVID Positive: Recall = 100%    >>>> Precion for class Y=1 =>     330 / 550  ~ 60%
+F1-Score:  Harmonic mean of Pr & Rec
+
+F1-Score:  2*Pr*Rec/(Pr + Rec)  ==> 1.2/1.6 = 3/4 = 0.75    
+F1-score: tradeoff betwen the model's precision & recall 
+Ideally, we want a model with the higher F1-score!
+
+
+++======================
+
+https://nbviewer.org/github/dsquareindia/gensim/blob/280375fe14adea67ce6384ba7eabf362b05e6029/docs/notebooks/topic_coherence_tutorial.ipynb
+
+============================================
+Please review the course here:
+https://www.trustpilot.com/evaluate/simplilearn.com
+
+Also put this info in the review.
+Trainer's Name: Prashant Sahu
+Course Name: PG DS Natural Language Processing
+
+
+
+
